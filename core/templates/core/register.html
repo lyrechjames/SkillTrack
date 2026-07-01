@@ -1,210 +1,56 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <style>
-        :root {
-            --bg: #f5f7ff;
-            --panel: #ffffff;
-            --text: #17212b;
-            --muted: #64748b;
-            --line: #e2e8f0;
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --danger: #dc2626;
-            --success: #059669;
-        }
-        * { box-sizing: border-box; }
-        body {
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            background:
-                radial-gradient(circle at top left, rgba(99, 102, 241, 0.4), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(45, 212, 191, 0.3), transparent 25%),
-                linear-gradient(180deg, #eff6ff 0%, #f8fbff 40%, #eef2ff 100%);
-            color: var(--text);
-            font-family: 'Segoe UI', Inter, Arial, Helvetica, sans-serif;
-        }
-        .screen {
-            width: min(94vw, 460px);
-            padding: 34px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 255, 0.92));
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 24px;
-            box-shadow: 0 18px 50px rgba(99, 102, 241, 0.2);
-        }
-        h1 {
-            margin: 0 0 10px;
-            text-align: center;
-            font-size: 2rem;
-            letter-spacing: -0.04em;
-        }
-        .subtitle {
-            margin: 0 0 22px;
-            text-align: center;
-            color: var(--muted);
-        }
-        label {
-            display: block;
-            margin: 14px 0 8px;
-            color: var(--text);
-            font-weight: 700;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            min-height: 50px;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 14px;
-            color: var(--text);
-            background: #fff;
-            font-size: 1rem;
-        }
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
-        }
-        .password-row {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            width: 72px;
-            height: 34px;
-            border: 0;
-            border-radius: 10px;
-            background: #eef2ff;
-            color: #4f46e5;
-            cursor: pointer;
-            font-weight: 700;
-        }
-        .password-row input { padding-right: 88px; }
-        .terms {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 18px 0 22px;
-            color: var(--muted);
-            font-weight: 500;
-        }
-        .terms input { margin-top: 2px; }
-        .button {
-            width: 100%;
-            min-height: 52px;
-            border: 0;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 12px 24px rgba(99, 102, 241, 0.25);
-        }
-        .button:hover:not(:disabled) {
-            transform: translateY(-1px);
-        }
-        .button:disabled {
-            background: #94a3b8;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        .meter {
-            height: 8px;
-            margin-top: 8px;
-            overflow: hidden;
-            border-radius: 999px;
-            background: #e2e8f0;
-        }
-        .meter span {
-            display: block;
-            width: 0;
-            height: 100%;
-            background: var(--danger);
-            transition: width 160ms ease, background 160ms ease;
-        }
-        .strength-text {
-            min-height: 20px;
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        .message {
-            margin: 0 0 14px;
-            padding: 12px 14px;
-            border-radius: 14px;
-            background: #fef2f2;
-            color: var(--danger);
-            font-weight: 600;
-        }
-        .message.success {
-            background: #ecfdf5;
-            color: var(--success);
-        }
-        .footer {
-            margin: 24px 0 0;
-            text-align: center;
-            color: var(--muted);
-        }
-        a { color: var(--primary-dark); font-weight: 700; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        @media (max-width: 520px) {
-            .screen { padding: 24px; border-radius: 18px; }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'core/styles.css' %}">
 </head>
-<body>
-    <main class="screen" aria-labelledby="register-title">
-        <div class="logo" aria-hidden="true" style="width: 56px; height: 56px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, #6366f1, #14b8a6); color: #fff; font-weight: 800; font-size: 1.6rem;">S</div>
-        <h1 id="register-title">Create Your Account</h1>
-        <p class="subtitle">Build your portfolio and start tracking certifications.</p>
+<body class="auth-page">
+    <main class="auth-card" aria-labelledby="register-title">
+        <div class="auth-logo" aria-hidden="true">S</div>
+        <h1 class="auth-title" id="register-title">Create Your Account</h1>
+        <p class="auth-subtitle">Build your portfolio and start tracking certifications.</p>
 
         {% if messages %}
             {% for msg in messages %}
-                <div class="message {{ msg.tags }}" role="status">{{ msg }}</div>
+                <div class="auth-message {{ msg.tags }}" role="status">{{ msg }}</div>
             {% endfor %}
         {% endif %}
 
-        <form method="POST" id="register-form" novalidate>
+        <form class="auth-form" method="POST" id="register-form" novalidate>
             {% csrf_token %}
-            <label for="full_name">Full Name</label>
-            <input id="full_name" type="text" name="full_name" value="{{ full_name|default:'' }}" autocomplete="name" required>
+            <label class="auth-field" for="full_name">Full Name</label>
+            <input class="auth-input" id="full_name" type="text" name="full_name" value="{{ full_name|default:'' }}" autocomplete="name" required>
 
-            <label for="email">Email Address</label>
-            <input id="email" type="email" name="email" value="{{ email|default:'' }}" autocomplete="email" required>
+            <label class="auth-field" for="email">Email Address</label>
+            <input class="auth-input" id="email" type="email" name="email" value="{{ email|default:'' }}" autocomplete="email" required>
 
-            <label for="password">Password</label>
+            <label class="auth-field" for="password">Password</label>
             <div class="password-row">
-                <input id="password" type="password" name="password" autocomplete="new-password" required>
+                <input class="auth-input" id="password" type="password" name="password" autocomplete="new-password" required>
                 <button class="toggle-password" type="button" data-target="password" aria-label="Show password">Show</button>
             </div>
             <div class="meter" aria-hidden="true"><span id="strength-bar"></span></div>
             <div class="strength-text" id="strength-text">Use 8+ characters with uppercase, number, and special character.</div>
 
-            <label for="confirm_password">Confirm Password</label>
+            <label class="auth-field" for="confirm_password">Confirm Password</label>
             <div class="password-row">
-                <input id="confirm_password" type="password" name="confirm_password" autocomplete="new-password" required>
+                <input class="auth-input" id="confirm_password" type="password" name="confirm_password" autocomplete="new-password" required>
                 <button class="toggle-password" type="button" data-target="confirm_password" aria-label="Show password">Show</button>
             </div>
             <div class="strength-text" id="match-text"></div>
 
-            <label class="terms" for="terms">
+            <label class="auth-remember" for="terms">
                 <input id="terms" type="checkbox" name="terms" required>
                 <span>I agree to the Terms &amp; Conditions</span>
             </label>
 
-            <button class="button" id="submit-button" type="submit" disabled>Register</button>
+            <button class="auth-button" id="submit-button" type="submit" disabled>Register</button>
         </form>
 
-        <p class="footer">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+        <p class="auth-footer auth-text">Already have an account? <a class="auth-link" href="{% url 'login' %}">Log In</a></p>
     </main>
 
     <script>

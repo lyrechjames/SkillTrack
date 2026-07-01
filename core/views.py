@@ -138,6 +138,50 @@ def login_view(request):
     return render(request, 'core/login.html')
 
 
+def login_view_alt(request):
+    if request.method == 'POST':
+        email = _normalize_email(request.POST.get('email'))
+        password = request.POST.get('password') or ''
+        remember_me = request.POST.get('remember_me') == 'on'
+
+        if not email or not password or not _valid_email(email):
+            messages.error(request, "Incorrect email or password. Please try again.")
+            return render(request, 'core/login_alt.html', {'email': email})
+
+        if cache.get(_lockout_key(email)):
+            messages.error(
+                request,
+                "Account temporarily locked due to too many failed attempts. Please try again in 15 minutes."
+            )
+            return render(request, 'core/login_alt.html', {'email': email})
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            cache.delete(_attempt_key(email))
+            cache.delete(_lockout_key(email))
+            login(request, user)
+            if not remember_me:
+                request.session.set_expiry(0)
+            else:
+                request.session.set_expiry(60 * 60 * 24 * 14)
+            messages.success(request, "Login successful! Redirecting to your dashboard...")
+            return redirect('dashboard')
+
+        attempts = cache.get(_attempt_key(email), 0) + 1
+        cache.set(_attempt_key(email), attempts, LOCKOUT_SECONDS)
+        if attempts >= LOCKOUT_LIMIT:
+            cache.set(_lockout_key(email), True, LOCKOUT_SECONDS)
+            messages.error(
+                request,
+                "Account temporarily locked due to too many failed attempts. Please try again in 15 minutes."
+            )
+        else:
+            messages.error(request, "Incorrect email or password. Please try again.")
+
+    return render(request, 'core/login_alt.html')
+
+
 @login_required(login_url='login')
 def dashboard_view(request):
     return render(request, 'core/dashboard.html', _dashboard_payload())
