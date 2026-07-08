@@ -60,7 +60,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        ssl_require=not os.getenv('DATABASE_URL', '').startswith('sqlite:'),
+        ssl_require=os.getenv('DATABASE_URL') is not None and not os.getenv('DATABASE_URL', '').startswith('sqlite:'),
     )
 }
 
@@ -78,6 +78,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.User'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'

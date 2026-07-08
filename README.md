@@ -1,39 +1,51 @@
 # SkillTrack
 
-SkillTrack is a centralized, web-based software platform designed to help students systematically organize, store, and manage their professional certifications and technical skills. The system bridges the gap between individual student portfolios and institutional evaluation by providing role-specific access to students, faculty advisers, and academic coordinators. Ultimately, it optimizes how credentials are tracked, searched, and verified throughout a student's academic journey.
-
-## Objectives
-
-- To establish a secure digital repository for storing and managing diverse certification records.
-- To accurately monitor and track student technical proficiency and training achievements over time.
-- To enable rapid, granular retrieval of specific records using an advanced multi-attribute search engine.
-- To generate comprehensive, exportable performance and accomplishment reports for academic or professional evaluation.
+SkillTrack is a centralized, web-based software platform designed to help students systematically organize, store, and manage their professional certifications, technical skills, and job applications. The system bridges the gap between individual student portfolios and institutional evaluation by providing role-specific dashboards for standard users and staff members.
 
 ## Features
 
-- User authentication with login, registration, and password recovery flows.
-- Protected dashboard access for authenticated users.
-- Centralized management of academic and professional credential records.
+- **User Authentication**: Secure registration, login, logout, and lockout security mechanisms.
+- **Skill Tracking**: Manage personal technical skills, categorized by technology area and proficiency level.
+- **Job Application Tracking**: Track applications sent to companies, statuses (Pending, Interviewing, Offered, Rejected), dates, and required skills.
+- **Skill Matching Analysis**: Interactive dashboard comparing your skills list to a job's required skills, giving a percentage match and checklist of missing skills!
+- **Administrative Logging**: Activity logging (`AdminLog`) tracking modifications for audit trails.
+- **Role-Based Dashboards**:
+  - *Standard Users*: Visualization of skill stats, job funnel metrics, and interactive skill matching.
+  - *Staff/Admin Users*: Global analytics, user account status manager, and system admin logs.
+
+## Technology Stack
+
+- **Backend**: Django (Python)
+- **Database**: SQLite
+- **Frontend**: HTML5, Vanilla CSS3, Javascript (ES6+)
 
 ## Getting Started
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jameslyrech-byte/SkillTrack.git
+   cd SkillTrack
+   ```
+2. Set up virtual environment:
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate  # Windows
+   source .venv/bin/activate  # macOS/Linux
+   ```
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Apply migrations:
+4. Run migrations:
    ```bash
+   python manage.py makemigrations core
    python manage.py migrate
    ```
-4. Run the development server:
+5. Create staff superuser:
+   ```bash
+   python manage.py createsuperuser
+   ```
+6. Run the server:
    ```bash
    python manage.py runserver
    ```
-
-## Project Structure
-
-- `config/` — Django project settings and URL configuration.
-- `core/` — Authentication views, templates, and core app logic.
-- `db.sqlite3` — Local development database.
-
