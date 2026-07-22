@@ -19,6 +19,12 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+# Render provides the public hostname at runtime. Including it avoids a
+# deployment becoming unavailable when its service slug changes.
+render_hostname = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if render_hostname and render_hostname not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(render_hostname)
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -65,8 +71,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Use SQLite for development, PostgreSQL for production
 db_url = os.getenv('DATABASE_URL', '')
 
-# Fallback to SQLite if no DATABASE_URL is set or if it contains placeholder passwords
-if not db_url or 'YOUR_PASSWORD' in db_url or 'YOUR_ACTUAL_PASSWORD' in db_url:
+# SQLite is convenient for local development, but a placeholder connection
+# string must never be treated as a working production database.
+if 'YOUR_PASSWORD' in db_url or 'YOUR_ACTUAL_PASSWORD' in db_url:
+    raise RuntimeError('DATABASE_URL contains a placeholder password. Set the real Supabase connection string in Render.')
+if not db_url:
     db_url = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
 
 DATABASES = {

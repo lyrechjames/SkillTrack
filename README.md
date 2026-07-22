@@ -38,7 +38,6 @@ SkillTrack is a centralized, web-based software platform designed to help studen
    ```
 4. Run migrations:
    ```bash
-   python manage.py makemigrations core
    python manage.py migrate
    ```
 5. Create staff superuser:
@@ -49,3 +48,11 @@ SkillTrack is a centralized, web-based software platform designed to help studen
    ```bash
    python manage.py runserver
    ```
+
+## Render + Supabase deployment
+
+In the Render web service's **Environment** settings, add `DATABASE_URL` with
+your complete Supabase PostgreSQL URI, replacing `[YOUR-PASSWORD]` with the
+database password. Do not commit that password to GitHub. The Render start
+command runs `python manage.py migrate --noinput` automatically before starting
+the application.
