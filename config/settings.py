@@ -107,7 +107,9 @@ WHITENOISE_USE_FINDERS = True
 WHITENOISE_AUTOREFRESH = DEBUG
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.zip', '.gz', '.tgz', '.bz2', '.tbz', '.xz', '.br']
 
-AUTH_USER_MODEL = 'SkillTrack.User'
+# This label matches the existing Supabase tables (core_user, core_adminlog,
+# and related tables) created by the original application.
+AUTH_USER_MODEL = 'core.User'
 
 AUTHENTICATION_BACKENDS = [
     'SkillTrack.backends.EmailBackend',
